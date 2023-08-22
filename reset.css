@@ -19,7 +19,7 @@ h6 {
   overflow-wrap: break-word;
 }
 
-#root,
+/* #root,
 #__next {
   isolation: isolate;
-}
+} */
