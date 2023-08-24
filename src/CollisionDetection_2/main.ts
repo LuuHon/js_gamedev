@@ -39,7 +39,7 @@ const animate = () => {
   ctx.fillStyle = "blue";
   ctx.fillText(`x:${mouse.x} y:${mouse.y}`, mouse.x, mouse.y);
 
-  circles.forEach((c) => c.update({ stroke: true }));
+  circles.forEach((c) => c.updateStroke());
 };
 
 main();
