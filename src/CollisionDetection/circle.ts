@@ -1,11 +1,11 @@
 export class Circle {
-  constructor(canvas, x, y, radius, color) {
-    this.c = canvas;
-    this.x = x;
-    this.y = y;
-    this.radius = radius;
-    this.color = color;
-  }
+  constructor(
+    private c: CanvasRenderingContext2D,
+    private x: number,
+    private y: number,
+    private radius: number,
+    private color: string,
+  ) {}
 
   draw() {
     this.c.beginPath();
