@@ -3,7 +3,9 @@ import { getDist, isCircleCollided } from "../lib/util";
 
 const cv = document.querySelector("canvas");
 if (cv === null) throw new Error("canvas is null");
+
 const ctx = cv.getContext("2d");
+ctx.font = cv.style.font;
 
 cv.width = 800;
 cv.height = 600;
@@ -21,9 +23,13 @@ document.onmousemove = (evt) => {
 
 let moving: Circle;
 let stationary: Circle;
+
+const movingInitialColor = "green";
+const stationaryInitialColor = "blue";
+const collidedColor = "red";
 const main = () => {
-  moving = new Circle(ctx, undefined, undefined, 50, "green");
-  stationary = new Circle(ctx, 300, 400, 50, "blue");
+  moving = new Circle(ctx, undefined, undefined, 100, movingInitialColor);
+  stationary = new Circle(ctx, 300, 400, 100, stationaryInitialColor);
 };
 
 const animate = () => {
@@ -31,6 +37,7 @@ const animate = () => {
 
   ctx.clearRect(0, 0, cv.width, cv.height);
   ctx.fillStyle = "blue";
+  ctx.font = "24px Arial";
 
   stationary.updateFill();
   moving.x = mouse.x;
@@ -38,7 +45,8 @@ const animate = () => {
   moving.updateFill();
 
   const distance = getDist(moving.x, moving.y, stationary.x, stationary.y);
-  const fillTextLeftMargin = 16 * 4;
+  const fillTextLeftMargin = 16 * 7;
+
   ctx.fillText(
     `D:${distance} x:${mouse.x} y:${mouse.y}`,
     mouse.x + fillTextLeftMargin,
@@ -46,11 +54,13 @@ const animate = () => {
   );
 
   if (isCircleCollided(distance, moving.radius, stationary.radius)) {
-    moving.color = "red";
+    moving.color = collidedColor;
+    stationary.color = collidedColor;
     return;
   }
 
-  moving.color = "green";
+  moving.color = movingInitialColor;
+  stationary.color = stationaryInitialColor;
 };
 
 main();
