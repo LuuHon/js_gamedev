@@ -4,38 +4,18 @@ const canvas = document.querySelector("canvas");
 if (canvas === null) throw new Error("canvas is null");
 const c = canvas.getContext("2d");
 
+canvas.width = 800;
+canvas.height = 600;
+
 const mouse = {
   x: innerWidth / 2,
   y: innerHeight / 2,
 };
 
-const desiredAspectRatio = 32 / 9;
-function updateCanvasSize() {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-
-  // Calculate the actual aspect ratio of the canvas
-  const currentAspectRatio = width / height;
-
-  // Determine the scaling factor to maintain the desired aspect ratio
-  let scale = 1;
-  if (currentAspectRatio > desiredAspectRatio) {
-    scale = height / canvas.height;
-  } else {
-    scale = width / canvas.width;
-  }
-
-  // Update the canvas dimensions and scale its content
-  canvas.width = width;
-  canvas.height = height;
-  c.scale(scale, scale);
-}
-
-window.addEventListener("resize", updateCanvasSize);
-
 document.onmousemove = (evt) => {
-  mouse.x = evt.clientX;
-  mouse.y = evt.clientY;
+  const rect = canvas.getBoundingClientRect();
+  mouse.x = evt.clientX - rect.left;
+  mouse.y = evt.clientY - rect.top;
 };
 
 const animate = () => {
@@ -49,11 +29,11 @@ const animate = () => {
 };
 
 const main = () => {
-  const circle = new Circle(c, 1000, 500, 100, "green");
+  const circle = new Circle(c, 100, 200, 100, "green");
   circle.draw();
   circle.update();
 
-  const c2 = new Circle(c, 1200, 500, 100, "red");
+  const c2 = new Circle(c, 200, 400, 100, "red");
   c2.draw();
   c2.update();
 };
