@@ -16,7 +16,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, "index.html"),
-        nested: resolve(__dirname, "src/CollisionDetection/index.html"),
+        cd: resolve(__dirname, "src/CollisionDetection/index.html"),
+        cdv2: resolve(__dirname, "src/CollisionDetection_2/index.html"),
       },
     },
   },

@@ -1,5 +1,4 @@
 import { Circle } from "../lib/circle";
-import { getDist } from "../lib/util";
 
 const cv = document.querySelector("canvas");
 if (cv === null) throw new Error("canvas is null");
@@ -19,12 +18,18 @@ document.onmousemove = (evt) => {
   mouse.y = evt.clientY - rect.top;
 };
 
-let moving: Circle;
-let stationary: Circle;
-
+let circles: Circle[];
 const main = () => {
-  moving = new Circle(ctx, undefined, undefined, 50, "green");
-  stationary = new Circle(ctx, 300, 400, 50, "blue");
+  circles = [];
+  for (let i = 0; i < 5; i++) {
+    const x = Math.random() * cv.width;
+    const y = Math.random() * cv.height;
+    const radius = 50;
+    const color = "hsl(240, 41%, 35%)";
+    circles.push(new Circle(ctx, x, y, radius, color));
+  }
+
+  console.log();
 };
 
 const animate = () => {
@@ -32,20 +37,9 @@ const animate = () => {
 
   ctx.clearRect(0, 0, cv.width, cv.height);
   ctx.fillStyle = "blue";
+  ctx.fillText(`x:${mouse.x} y:${mouse.y}`, mouse.x, mouse.y);
 
-  // circles.forEach((c) => c.update());
-  stationary.update({ stroke: false });
-  moving.xCord = mouse.x;
-  moving.yCord = mouse.y;
-  moving.update({ stroke: false });
-
-  const distance = getDist(moving.x, moving.y, stationary.x, stationary.y);
-  const fillTextLeftMargin = 16 * 4;
-  ctx.fillText(
-    `D:${distance} x:${mouse.x} y:${mouse.y}`,
-    mouse.x + fillTextLeftMargin,
-    mouse.y,
-  );
+  circles.forEach((c) => c.update({ stroke: true }));
 };
 
 main();
