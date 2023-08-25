@@ -4,18 +4,18 @@ const cv = document.querySelector("canvas");
 if (cv === null) throw new Error("canvas is null");
 const ctx = cv.getContext("2d");
 
-cv.width = 800;
-cv.height = 600;
+cv.width = 1280;
+cv.height = 720;
 
 const mouse = {
-  x: innerWidth / 2,
-  y: innerHeight / 2,
+  x: Math.round(cv.width / 2),
+  y: Math.round(cv.height / 2),
 };
 
 document.onmousemove = (evt) => {
   const rect = cv.getBoundingClientRect();
-  mouse.x = evt.clientX - rect.left;
-  mouse.y = evt.clientY - rect.top;
+  mouse.x = Math.round(evt.clientX - rect.left);
+  mouse.y = Math.round(evt.clientY - rect.top);
 };
 
 let circles: Circle[];

@@ -6,20 +6,20 @@ if (cv === null) throw new Error("canvas is null");
 const ctx = cv.getContext("2d");
 ctx.font = cv.style.font;
 
-cv.width = 800;
-cv.height = 600;
+cv.width = 1280;
+cv.height = 720;
 
 //set initial mouse x/y coords to center of canvas
 const mouse = {
-  x: cv.width / 2,
-  y: cv.height / 2,
+  x: Math.round(cv.width / 2),
+  y: Math.round(cv.height / 2),
 };
 
 //update mouse x/y coords relative to the centerd canvas and view port
 document.onmousemove = (evt) => {
   const rect = cv.getBoundingClientRect();
-  mouse.x = evt.clientX - rect.left;
-  mouse.y = evt.clientY - rect.top;
+  mouse.x = Math.round(evt.clientX - rect.left);
+  mouse.y = Math.round(evt.clientY - rect.top);
 };
 
 let moving: Circle;
@@ -30,7 +30,9 @@ const stationaryInitialColor = "blue";
 const collidedColor = "red";
 const main = () => {
   moving = new Circle(ctx, undefined, undefined, 100, movingInitialColor);
-  stationary = new Circle(ctx, 400, 300, 100, stationaryInitialColor);
+  const centerX = cv.width / 2;
+  const centerY = cv.height / 2;
+  stationary = new Circle(ctx, centerX, centerY, 100, stationaryInitialColor);
 };
 
 const animate = () => {
@@ -53,7 +55,11 @@ const animate = () => {
   ctx.fillStyle = "black";
   ctx.fillText(`dist:${distance}`, mouse.x + fillTextLeftMargin, mouse.y);
   ctx.fillText(`x:${mouse.x}`, mouse.x + fillTextLeftMargin, mouse.y + 30);
-  ctx.fillText(`y:${mouse.y}`, mouse.x + fillTextLeftMargin, mouse.y + 60);
+  ctx.fillText(
+    `y:${Number(mouse.y.toFixed(2))}`,
+    mouse.x + fillTextLeftMargin,
+    mouse.y + 60,
+  );
 
   //Stationary
   ctx.fillText(
