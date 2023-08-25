@@ -20,5 +20,10 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "vite-env.d.ts", "src/CollisionDetection"]
+  "include": [
+    "src",
+    "vite-env.d.ts",
+    "src/CollisionDetection",
+    "src/CollisionDetection_2"
+  ]
 }
