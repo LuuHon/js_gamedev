@@ -1,5 +1,4 @@
-import { Circle } from "../lib/circle";
-import { getDist, isCircleCollided } from "../lib/util";
+import { Circle, getDist, isCircleCollided } from "../lib";
 
 const cv = document.querySelector("canvas");
 if (cv === null) throw new Error("canvas is null");

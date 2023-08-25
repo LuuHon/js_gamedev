@@ -13,6 +13,13 @@ export default defineConfig({
   },
   build: {
     outDir,
+    lib: {
+      // Could also be a dictionary or array of multiple entry points
+      entry: resolve(__dirname, "./src/lib/index.ts"),
+      formats: ["cjs", "es"],
+      // the proper extensions will be added
+      fileName: "index.ts",
+    },
     rollupOptions: {
       input: {
         main: resolve(__dirname, "index.html"),

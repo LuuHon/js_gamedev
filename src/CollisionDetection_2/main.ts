@@ -1,4 +1,4 @@
-import { Circle } from "../lib/circle";
+import { Circle } from "../lib";
 
 const cv = document.querySelector("canvas");
 if (cv === null) throw new Error("canvas is null");
