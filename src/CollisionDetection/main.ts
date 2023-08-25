@@ -80,8 +80,8 @@ const animate = () => {
   const leftBoundaryCollision = moving.x <= moving.radius;
   const rightBoundaryCollision = moving.radius + moving.x >= cv.width;
   if (leftBoundaryCollision || rightBoundaryCollision) {
-    mouse.x = 400;
-    mouse.y = 300;
+    mouse.x = cv.width / 2;
+    mouse.y = cv.height / 2;
 
     alert("canvas's x boundary hit, moving mouse back to center");
     return;
@@ -91,15 +91,11 @@ const animate = () => {
   const topBoundaryCollision = moving.y <= moving.radius;
   const bottomBoundaryCollision = moving.radius + moving.y >= cv.height;
   if (topBoundaryCollision || bottomBoundaryCollision) {
-    mouse.x = 400;
-    mouse.y = 300;
+    mouse.x = cv.width / 2;
+    mouse.y = cv.height / 2;
 
     alert("canvas's y boundary hit, moving mouse to center");
     return;
-  }
-
-  if (moving.x > 600) {
-    console.log(moving.x);
   }
 
   moving.color = movingInitialColor;
