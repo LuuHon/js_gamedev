@@ -3,6 +3,7 @@ import { Circle } from "../lib";
 const cv = document.querySelector("canvas");
 if (cv === null) throw new Error("canvas is null");
 const ctx = cv.getContext("2d");
+if (ctx === null) throw new Error("context is null");
 
 cv.width = 1280;
 cv.height = 720;
@@ -21,10 +22,10 @@ document.onmousemove = (evt) => {
 let circles: Circle[];
 const main = () => {
   circles = [];
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 100; i++) {
     const x = Math.random() * cv.width;
     const y = Math.random() * cv.height;
-    const radius = 50;
+    const radius = 25;
     const color = "hsl(240, 41%, 35%)";
     circles.push(new Circle(ctx, x, y, radius, color));
   }

@@ -2,8 +2,9 @@ import { Circle, getDist, isCircleCollided } from "../lib";
 
 const cv = document.querySelector("canvas");
 if (cv === null) throw new Error("canvas is null");
-
 const ctx = cv.getContext("2d");
+if (ctx === null) throw new Error("ctx is null");
+
 ctx.font = cv.style.font;
 
 cv.width = 1280;
@@ -29,7 +30,7 @@ const movingInitialColor = "green";
 const stationaryInitialColor = "blue";
 const collidedColor = "red";
 const main = () => {
-  moving = new Circle(ctx, undefined, undefined, 100, movingInitialColor);
+  moving = new Circle(ctx, 0, 0, 100, movingInitialColor);
   const centerX = cv.width / 2;
   const centerY = cv.height / 2;
   stationary = new Circle(ctx, centerX, centerY, 100, stationaryInitialColor);
