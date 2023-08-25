@@ -29,7 +29,7 @@ const stationaryInitialColor = "blue";
 const collidedColor = "red";
 const main = () => {
   moving = new Circle(ctx, undefined, undefined, 100, movingInitialColor);
-  stationary = new Circle(ctx, 300, 400, 100, stationaryInitialColor);
+  stationary = new Circle(ctx, 400, 300, 100, stationaryInitialColor);
 };
 
 const animate = () => {
@@ -49,13 +49,13 @@ const animate = () => {
 
   //Moving
   ctx.fillStyle = "black";
-  ctx.fillText(`d:${distance}`, mouse.x + fillTextLeftMargin, mouse.y);
+  ctx.fillText(`dist:${distance}`, mouse.x + fillTextLeftMargin, mouse.y);
   ctx.fillText(`x:${mouse.x}`, mouse.x + fillTextLeftMargin, mouse.y + 30);
   ctx.fillText(`y:${mouse.y}`, mouse.x + fillTextLeftMargin, mouse.y + 60);
 
   //Stationary
   ctx.fillText(
-    `d:${distance}`,
+    `dist:${distance}`,
     stationary.x + fillTextLeftMargin,
     stationary.y,
   );
@@ -78,6 +78,8 @@ const animate = () => {
 
   moving.color = movingInitialColor;
   stationary.color = stationaryInitialColor;
+
+  console.log(2 * 3.14 * stationary.radius);
 };
 
 main();
