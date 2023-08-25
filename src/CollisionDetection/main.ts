@@ -47,10 +47,27 @@ const animate = () => {
   const distance = getDist(moving.x, moving.y, stationary.x, stationary.y);
   const fillTextLeftMargin = 16 * 7;
 
+  //Moving
+  ctx.fillStyle = "black";
+  ctx.fillText(`d:${distance}`, mouse.x + fillTextLeftMargin, mouse.y);
+  ctx.fillText(`x:${mouse.x}`, mouse.x + fillTextLeftMargin, mouse.y + 30);
+  ctx.fillText(`y:${mouse.y}`, mouse.x + fillTextLeftMargin, mouse.y + 60);
+
+  //Stationary
   ctx.fillText(
-    `D:${distance} x:${mouse.x} y:${mouse.y}`,
-    mouse.x + fillTextLeftMargin,
-    mouse.y,
+    `d:${distance}`,
+    stationary.x + fillTextLeftMargin,
+    stationary.y,
+  );
+  ctx.fillText(
+    `x:${stationary.x}`,
+    stationary.x + fillTextLeftMargin,
+    stationary.y + 30,
+  );
+  ctx.fillText(
+    `y:${stationary.y}`,
+    stationary.x + fillTextLeftMargin,
+    stationary.y + 60,
   );
 
   if (isCircleCollided(distance, moving.radius, stationary.radius)) {
