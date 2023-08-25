@@ -76,10 +76,35 @@ const animate = () => {
     return;
   }
 
+  // reset circle back to center(setting mouse coords) if circle touches canvas's vertical boundaries
+  const leftBoundaryCollision = moving.x <= moving.radius;
+  const rightBoundaryCollision = moving.radius + moving.x >= cv.width;
+  if (leftBoundaryCollision || rightBoundaryCollision) {
+    mouse.x = 400;
+    mouse.y = 300;
+
+    alert("canvas's x boundary hit, moving mouse back to center");
+    return;
+  }
+
+  // reset circle back to center if circle touches canvas's horizontal boundaries
+  const topBoundaryCollision = moving.y <= moving.radius;
+  const bottomBoundaryCollision = moving.radius + moving.y >= cv.height;
+  if (topBoundaryCollision || bottomBoundaryCollision) {
+    mouse.x = 400;
+    mouse.y = 300;
+
+    alert("canvas's y boundary hit, moving mouse to center");
+    return;
+  }
+
+  if (moving.x > 600) {
+    console.log(moving.x);
+  }
+
   moving.color = movingInitialColor;
   stationary.color = stationaryInitialColor;
-
-  console.log(2 * 3.14 * stationary.radius);
+  document.querySelector("h1").innerText = "Collision Detection";
 };
 
 main();
