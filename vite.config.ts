@@ -3,8 +3,11 @@ import { defineConfig } from "vite";
 
 const outDir = resolve(__dirname, "dist");
 
+// Vite doesn't build prod if *.html include inline css. Need to link external css
 export default defineConfig({
   //production preview port
+  root: __dirname,
+
   preview: {
     port: 5000,
   },
@@ -12,14 +15,9 @@ export default defineConfig({
     port: 8080,
   },
   build: {
+    cssCodeSplit: true,
     outDir,
-    lib: {
-      // Could also be a dictionary or array of multiple entry points
-      entry: resolve(__dirname, "./src/lib/index.ts"),
-      formats: ["cjs", "es"],
-      // the proper extensions will be added
-      fileName: "index.ts",
-    },
+    reportCompressedSize: true,
     rollupOptions: {
       input: {
         main: resolve(__dirname, "index.html"),

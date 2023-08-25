@@ -19,6 +19,7 @@ h6 {
   overflow-wrap: break-word;
 }
 
+/* mirror shadowroot functionality */
 /* #root,
 #__next {
   isolation: isolate;

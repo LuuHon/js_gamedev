@@ -1,0 +1,15 @@
+body {
+  align-items: center;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 0;
+}
+
+h1 {
+  margin-bottom: calc(1rem * (16 * 5) / 16);
+}
+
+canvas {
+  border: dotted;
+}
