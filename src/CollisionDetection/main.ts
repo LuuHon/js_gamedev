@@ -10,11 +10,13 @@ ctx.font = cv.style.font;
 cv.width = 800;
 cv.height = 600;
 
+//set initial mouse x/y coords to center of canvas
 const mouse = {
-  x: innerWidth / 2,
-  y: innerHeight / 2,
+  x: cv.width / 2,
+  y: cv.height / 2,
 };
 
+//update mouse x/y coords relative to the centerd canvas and view port
 document.onmousemove = (evt) => {
   const rect = cv.getBoundingClientRect();
   mouse.x = evt.clientX - rect.left;
@@ -40,6 +42,7 @@ const animate = () => {
   ctx.font = "24px Arial";
 
   stationary.updateFill();
+
   moving.x = mouse.x;
   moving.y = mouse.y;
   moving.updateFill();
@@ -100,7 +103,6 @@ const animate = () => {
 
   moving.color = movingInitialColor;
   stationary.color = stationaryInitialColor;
-  document.querySelector("h1").innerText = "Collision Detection";
 };
 
 main();
