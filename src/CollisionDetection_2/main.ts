@@ -54,7 +54,7 @@ const isOverlapping = (
 let circles: Circle[];
 const main = () => {
   circles = [];
-  const numCircles = 100;
+  const numCircles = 150;
   const radius = 25;
   const color = "hsl(240, 41%, 35%)";
 
@@ -64,11 +64,12 @@ const main = () => {
     let c: Circle;
     let willOverlap = true;
 
-    //Fix this logic
     while (willOverlap) {
       x = getValidRandomX(cv.width, radius);
       y = getValidRandomY(cv.height, radius);
+
       if (isOverlapping(circles, x, y, radius)) continue;
+
       willOverlap = false;
       c = new Circle(ctx, x, y, radius, color);
       circles.push(c);
