@@ -1,4 +1,4 @@
-import { Circle } from "../lib";
+import { Circle, getDist, isCircleCollided } from "../lib";
 
 const cv = document.querySelector("canvas");
 if (cv === null) throw new Error("canvas is null");
@@ -19,18 +19,61 @@ document.onmousemove = (evt) => {
   mouse.y = Math.round(evt.clientY - rect.top);
 };
 
+const getValidRandomX = (canvasWidth: number, radius: number) => {
+  const leftCanvasBoundary = Math.max(radius, Math.random() * canvasWidth);
+  const rightCanvasBoundary = canvasWidth - radius;
+
+  return Math.min(leftCanvasBoundary, rightCanvasBoundary);
+};
+
+const getValidRandomY = (canvasHeight: number, radius: number) => {
+  const topCanvasBoundary = Math.max(radius, Math.random() * canvasHeight);
+  const bottomCanvasBoundary = canvasHeight - radius;
+
+  return Math.min(bottomCanvasBoundary, topCanvasBoundary);
+};
+
+const isOverlapping = (
+  c: Circle[],
+  c2X: number,
+  c2Y: number,
+  c2Radius: number,
+) => {
+  if (c.length === 0) return false;
+
+  const overlapping = c.filter((c) => {
+    const dist = getDist(c.x, c.y, c2X, c2Y);
+    return isCircleCollided(dist, c.radius, c2Radius);
+  });
+
+  if (overlapping.length > 0) return true;
+
+  return false;
+};
+
 let circles: Circle[];
 const main = () => {
   circles = [];
-  for (let i = 0; i < 100; i++) {
-    const x = Math.random() * cv.width;
-    const y = Math.random() * cv.height;
-    const radius = 25;
-    const color = "hsl(240, 41%, 35%)";
-    circles.push(new Circle(ctx, x, y, radius, color));
-  }
+  const numCircles = 100;
+  const radius = 25;
+  const color = "hsl(240, 41%, 35%)";
 
-  console.log();
+  for (let i = 0; i < numCircles; i++) {
+    let x,
+      y: number = 0;
+    let c: Circle;
+    let willOverlap = true;
+
+    //Fix this logic
+    while (willOverlap) {
+      x = getValidRandomX(cv.width, radius);
+      y = getValidRandomY(cv.height, radius);
+      if (isOverlapping(circles, x, y, radius)) continue;
+      willOverlap = false;
+      c = new Circle(ctx, x, y, radius, color);
+      circles.push(c);
+    }
+  }
 };
 
 const animate = () => {
