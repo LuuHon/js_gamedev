@@ -16,7 +16,7 @@ export default defineConfig({
     port: 8080,
   },
   build: {
-    cssCodeSplit: true,
+    cssCodeSplit: false,
     outDir,
     reportCompressedSize: true,
     rollupOptions: {
