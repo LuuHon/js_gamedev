@@ -1,0 +1,4 @@
+#!/bin/bash
+# TODO:: Follow this thread to deploy dist to gh pages https://gist.github.com/cobyism/4730490
+
+echo "hi"
