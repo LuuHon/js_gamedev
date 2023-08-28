@@ -1,8 +1,7 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
 
-// Generally dist, but using docs folder for github pages
-const outDir = resolve(__dirname, "docs");
+const outDir = resolve(__dirname, "dist");
 
 // Vite doesn't build prod if *.html include inline css. Need to link external css
 export default defineConfig({
