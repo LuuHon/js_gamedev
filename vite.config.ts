@@ -1,13 +1,12 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
 
-const outDir = resolve(__dirname, "docs");
+const outDir = resolve(__dirname, "dist");
 
 // Vite doesn't build prod if *.html include inline css. Need to link external css
 export default defineConfig({
-  //production preview port
-  root: __dirname,
-
+  base: "", //required to append the correct relative paths to modules and linked stylesheets
+  root: ".",
   preview: {
     port: 5000,
   },
@@ -15,14 +14,15 @@ export default defineConfig({
     port: 8080,
   },
   build: {
+    assetsDir: ".",
     cssCodeSplit: false,
     outDir,
     reportCompressedSize: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "index.html"),
-        cd: resolve(__dirname, "src/CollisionDetection/index.html"),
-        cdv2: resolve(__dirname, "src/CollisionDetection_2/index.html"),
+        main: "./index.html",
+        CollisionDetection: "/src/CollisionDetection/index.html",
+        CollisionDetection2: "/src/CollisionDetection_2/index.html",
       },
     },
   },
