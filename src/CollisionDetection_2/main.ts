@@ -1,4 +1,4 @@
-import { Circle, getDist, isCircleCollided } from "../lib";
+import { Particle, Velocity, getDist, isRoundShapeCollided } from "../lib";
 
 const cv = document.querySelector("canvas");
 if (cv === null) throw new Error("canvas is null");
@@ -34,7 +34,7 @@ const getValidRandomY = (canvasHeight: number, radius: number) => {
 };
 
 const isOverlapping = (
-  c: Circle[],
+  c: Particle[],
   c2X: number,
   c2Y: number,
   c2Radius: number,
@@ -43,7 +43,7 @@ const isOverlapping = (
 
   const overlapping = c.filter((c) => {
     const dist = getDist(c.x, c.y, c2X, c2Y);
-    return isCircleCollided(dist, c.radius, c2Radius);
+    return isRoundShapeCollided(dist, c.radius, c2Radius);
   });
 
   if (overlapping.length > 0) return true;
@@ -51,42 +51,57 @@ const isOverlapping = (
   return false;
 };
 
-let circles: Circle[];
+let particles: Particle[];
 const main = () => {
-  circles = [];
-  const numCircles = 150;
+  particles = [];
+  // const numParticles = 150;
+  const numParticles = 4;
   const radius = 25;
   const color = "hsl(240, 41%, 35%)";
 
-  for (let i = 0; i < numCircles; i++) {
+  for (let i = 0; i < numParticles; i++) {
     let x,
       y: number = 0;
-    let c: Circle;
+    let p: Particle;
     let willOverlap = true;
 
     while (willOverlap) {
       x = getValidRandomX(cv.width, radius);
       y = getValidRandomY(cv.height, radius);
 
-      if (isOverlapping(circles, x, y, radius)) continue;
+      if (isOverlapping(particles, x, y, radius)) continue;
 
       willOverlap = false;
-      c = new Circle(ctx, x, y, radius, color);
-      circles.push(c);
+
+      const randomVelocity: Velocity = {
+        xVel: Math.random() - 0.5,
+        yVel: Math.random() - 0.5,
+      };
+      p = new Particle(ctx, x, y, radius, color, randomVelocity);
+      particles.push(p);
     }
   }
 };
 
-const animate = () => {
+let lastTimestamp = 0;
+const frameRate = 1000 / 60;
+const animate = (timestamp: DOMHighResTimeStamp) => {
+  const elapsed = timestamp - lastTimestamp;
   requestAnimationFrame(animate);
+  if (elapsed >= frameRate) {
+    // debugger;
+    lastTimestamp = timestamp;
 
-  ctx.clearRect(0, 0, cv.width, cv.height);
-  ctx.fillStyle = "blue";
-  ctx.font = "16px arial";
-  ctx.fillText(`x:${mouse.x} y:${mouse.y}`, mouse.x, mouse.y);
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    ctx.fillStyle = "blue";
+    ctx.font = "16px arial";
+    ctx.fillText(`x:${mouse.x} y:${mouse.y}`, mouse.x, mouse.y);
 
-  circles.forEach((c) => c.updateStroke());
+    particles.forEach((c) => {
+      c.update(particles);
+    });
+  }
 };
 
 main();
-animate();
+animate(0);

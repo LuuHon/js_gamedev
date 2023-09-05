@@ -1,4 +1,4 @@
-import { Circle, getDist, isCircleCollided } from "../lib";
+import { Circle, getDist, isRoundShapeCollided } from "../lib";
 
 const cv = document.querySelector("canvas");
 if (cv === null) throw new Error("canvas is null");
@@ -79,7 +79,7 @@ const animate = () => {
     stationary.y + 60,
   );
 
-  if (isCircleCollided(distance, moving.radius, stationary.radius)) {
+  if (isRoundShapeCollided(distance, moving.radius, stationary.radius)) {
     moving.color = collidedColor;
     stationary.color = collidedColor;
     return;

@@ -2,6 +2,7 @@ import { resolve } from "path";
 import { defineConfig } from "vite";
 
 const outDir = resolve(__dirname, "dist");
+process.env.BROWSER = "CHROME";
 
 // Vite doesn't build prod if *.html include inline css. Need to link external css
 export default defineConfig({
@@ -12,6 +13,7 @@ export default defineConfig({
   },
   server: {
     port: 8080,
+    open: "chrome --incognito",
   },
   build: {
     assetsDir: ".",
