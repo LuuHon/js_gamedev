@@ -5,8 +5,10 @@ if (cv === null) throw new Error("canvas is null");
 const ctx = cv.getContext("2d");
 if (ctx === null) throw new Error("context is null");
 
-cv.width = 1280;
-cv.height = 720;
+// cv.width = 1280;
+// cv.height = 720;
+cv.width = 400;
+cv.height = 400;
 
 const mouse = {
   x: Math.round(cv.width / 2),
@@ -57,6 +59,7 @@ const main = () => {
   // const numParticles = 150;
   const numParticles = 4;
   const radius = 25;
+  const mass = 5;
   const color = "hsl(240, 41%, 35%)";
 
   for (let i = 0; i < numParticles; i++) {
@@ -74,10 +77,10 @@ const main = () => {
       willOverlap = false;
 
       const randomVelocity: Velocity = {
-        x: Math.random() - 0.5,
-        y: Math.random() - 0.5,
+        x: 5,
+        y: 5,
       };
-      p = new Particle(ctx, x, y, radius, color, randomVelocity);
+      p = new Particle(ctx, x, y, radius, mass, color, randomVelocity);
       particles.push(p);
     }
   }
