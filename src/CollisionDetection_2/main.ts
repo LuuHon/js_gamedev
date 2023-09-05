@@ -74,8 +74,8 @@ const main = () => {
       willOverlap = false;
 
       const randomVelocity: Velocity = {
-        xVel: Math.random() - 0.5,
-        yVel: Math.random() - 0.5,
+        x: Math.random() - 0.5,
+        y: Math.random() - 0.5,
       };
       p = new Particle(ctx, x, y, radius, color, randomVelocity);
       particles.push(p);
@@ -88,8 +88,8 @@ const frameRate = 1000 / 60;
 const animate = (timestamp: DOMHighResTimeStamp) => {
   const elapsed = timestamp - lastTimestamp;
   requestAnimationFrame(animate);
+
   if (elapsed >= frameRate) {
-    // debugger;
     lastTimestamp = timestamp;
 
     ctx.clearRect(0, 0, cv.width, cv.height);
@@ -98,7 +98,7 @@ const animate = (timestamp: DOMHighResTimeStamp) => {
     ctx.fillText(`x:${mouse.x} y:${mouse.y}`, mouse.x, mouse.y);
 
     particles.forEach((c) => {
-      c.update(particles);
+      c.update(particles, cv.width, cv.height);
     });
   }
 };

@@ -1,6 +1,6 @@
 export type Velocity = {
-  xVel: number;
-  yVel: number;
+  x: number;
+  y: number;
 };
 
 export class Particle {
@@ -13,15 +13,32 @@ export class Particle {
     public velocity: Velocity,
   ) {}
 
-  update(particles: Particle[]) {
+  update(particles: Particle[], xBoundary: number, yBoundary: number) {
     this.draw();
 
     for (const p of particles) {
       if (this === p) continue;
     }
 
-    this.x += this.velocity.xVel;
-    this.y += this.velocity.yVel;
+    if (this.isExceedingXbounds(xBoundary)) {
+      console.log("xb");
+      this.velocity.x = -this.velocity.x;
+    }
+    if (this.isExceedingYbounds(yBoundary)) {
+      console.log("yb");
+      this.velocity.y = -this.velocity.y;
+    }
+
+    this.x += this.velocity.x;
+    this.y += this.velocity.y;
+  }
+
+  isExceedingXbounds(xb: number) {
+    return this.x - this.radius <= 0 || this.radius >= xb;
+  }
+
+  isExceedingYbounds(yb: number) {
+    return this.y - this.radius <= 0 || this.radius >= yb;
   }
 
   draw() {
@@ -30,11 +47,5 @@ export class Particle {
     this.c.strokeStyle = this.color;
     this.c.stroke();
     this.c.closePath();
-  }
-
-  updateVelocity() {
-    this.velocity.xVel += 5;
-    this.velocity.yVel += 5;
-    this.draw();
   }
 }
