@@ -25,7 +25,7 @@ export class Particle {
       const dist = getDist(this.x, this.y, p.x, p.y);
 
       if (isRoundShapeCollided(dist, this.radius, p.radius)) {
-        this.handleCollision(p);
+        // this.handleCollision(p);
       }
     }
 
@@ -42,11 +42,11 @@ export class Particle {
     return 0.25 * Math.PI * this.radius ** 4 * this.mass;
   }
 
-  handleCollision(otherParticle: Particle) {
-    // Calculate relative velocity
-    const relativeVelocityX = this.velocity.x - otherParticle.velocity.x;
-    const relativeVelocityY = this.velocity.x - otherParticle.velocity.y;
-  }
+  // handleCollision(otherParticle: Particle) {
+
+  //   const relativeVelocityX = this.velocity.x - otherParticle.velocity.x;
+  //   const relativeVelocityY = this.velocity.x - otherParticle.velocity.y;
+  // }
 
   updatePositionAndRotation() {
     this.x += this.velocity.x;
